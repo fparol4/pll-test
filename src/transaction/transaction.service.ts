@@ -7,6 +7,14 @@ import prismaClient, {
 } from '../shared/utils/prisma.client'
 import { TRANSACTION_TYPES, TransactionDTO } from './schemas/transaction.schema'
 
+export const startNewTransaction = async (transactionDTO: TransactionDTO) => {
+  if (transactionDTO.operationType === TRANSACTION_TYPES.DEPOSITO) {
+    return addDepositTransaction(transactionDTO)
+  }
+
+  return addWithdrawTransaction(transactionDTO)
+}
+
 export const addNewTransaction = async (
   prismaTransactionClient: PrismaTransactionalClient = prismaClient,
   transactionDTO: TransactionDTO,
@@ -21,14 +29,6 @@ export const addNewTransaction = async (
   })
 
   return transaction
-}
-
-export const startNewTransaction = async (transactionDTO: TransactionDTO) => {
-  if (transactionDTO.operationType === TRANSACTION_TYPES.DEPOSITO) {
-    return addDepositTransaction(transactionDTO)
-  }
-
-  return addWithdrawTransaction(transactionDTO)
 }
 
 export const addDepositTransaction = async (transactionDTO: TransactionDTO) => {
