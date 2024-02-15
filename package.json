@@ -32,8 +32,10 @@
   },
   "scripts": {
     "start:dev": "npx nodemon",
+    "start:prod": "node build",
     "db:migrate": "npx prisma migrate dev", 
     "db:seed": "ts-node prisma/seed.ts", 
+    "build": "npx rimraf build && yarn tsc", 
     "test": "jest --config=jest.config.js",
     "format": "prettier --ignore-path .gitignore --write \"src/**/*.+(js|ts|json)\""
   },
